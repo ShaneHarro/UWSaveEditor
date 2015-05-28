@@ -2,7 +2,7 @@
 //Ultima Underworld Save Editor - Shane Harrison
 //Documentation used: ftp://files.chatnfiles.com/Infomagic-Windows/Infomagic-Games-for-Daze-Summer-95-1/EDITORS/UWEDITOR/UWEDITOR.TXT
 //                      http://bootstrike.com/Ultima/Online/uwformat.php
-
+//
 //******************************************************************************
 
 /*Some notes
@@ -45,10 +45,10 @@ namespace UW_Save_Editor
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void changeStatsButton_Click(object sender, EventArgs e)
         {
             int strengthByte;
-            string term;
+            string codeTerm;
             string changeByte;
             byte changeByteConvert;
 
@@ -76,8 +76,6 @@ namespace UW_Save_Editor
             int acrobat = int.Parse(acroBox.Text);
             int appraise = int.Parse(appBox.Text);
             int swimming = int.Parse(swimBox.Text);
-            //int vitality = int.Parse(vitBox.Text);
-           // int manapool = int.Parse(manaPoolBox.Text);
 
             //Array that holds all the user input fields
             int[] stats = {strength, dexterity, intelligence, attack, defense, unarmed, sword, axe, mace, missile, mana, lore, casting, traps, search, track, sneak, repair,
@@ -95,10 +93,10 @@ namespace UW_Save_Editor
                 strengthByte = fs.ReadByte();
 
                 //Calculate term
-                term = calcTerm(int.Parse(StrengthSync.Text), strengthByte);
+                codeTerm = calcTerm(int.Parse(StrengthSync.Text), strengthByte);
 
                 //Loop for as many as there are stats
-                for (int i = 0; i < stats.Length; i ++ )
+                for (int i = 0; i < stats.Length; i++ )
                 {
                     //If we are on the first loop, set our position offset back to the byte that holds Strength
                     if (i == 0)
@@ -107,7 +105,7 @@ namespace UW_Save_Editor
                     }
 
                     //Calculate the byte change required to change to requested value
-                    changeByte = calcChange(stats[i], term);
+                    changeByte = calcChange(stats[i], codeTerm);
 
                     //Convert "ChangeByte" string returned from function into a byte
                     changeByteConvert = byte.Parse(changeByte);
@@ -116,7 +114,7 @@ namespace UW_Save_Editor
                     fs.WriteByte(changeByteConvert);
 
                     //Converts term hex string into a usable hex value
-                    int termTemp = int.Parse(term, NumberStyles.HexNumber);
+                    int termTemp = int.Parse(codeTerm, NumberStyles.HexNumber);
                   
                     //Add 3 to term
                     termTemp += 0x03;
@@ -128,9 +126,7 @@ namespace UW_Save_Editor
                     }
 
                     //Store our term + 3 back into term string for next loop
-                    term = termTemp.ToString("X");
-
-
+                    codeTerm = termTemp.ToString("X");
                 }
                                          
                 fs.Close();
@@ -146,7 +142,6 @@ namespace UW_Save_Editor
                 MessageBox.Show("No file selected.");
             }           
         }
-
 
         //Calculate term based on strength
         string calcTerm(int strengthValue, int StrengthByte)
@@ -171,15 +166,30 @@ namespace UW_Save_Editor
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (ofd.ShowDialog() == DialogResult.OK)
+        private void openFileButton_Click(object sender, EventArgs e)
+        {       
+            if (ofd.ShowDialog() == DialogResult.OK);
             {
-                fileOK = true;
+                string filePath = ofd.FileName;
+                string fileName = Path.GetFileName(filePath);
+                string fileExtension = fileName.GetLast(4);
+
+                if (fileExtension != ".DAT")
+                {
+                    fileOK = false;
+                    MessageBox.Show("Incorrect file type.");
+                }
+
+                else
+                {
+                    fileOK = true;
+                }
             }
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+
+        //Teleportation still under construction
+        private void teleportButton_Click(object sender, EventArgs e)
         {
           //Start coordinates: EA 14 CA 13 14 14
             if (fileOK == true)
@@ -201,9 +211,19 @@ namespace UW_Save_Editor
                 fs.WriteByte(0x14);
 
                 MessageBox.Show("Coordinates updated!");
-
                 fs.Close();
             }
+        }
+    }
+
+
+    public static class StringExtension
+    {
+        public static string GetLast(this string source, int tail_length)
+        {
+            if (tail_length >= source.Length)
+                return source;
+            return source.Substring(source.Length - tail_length);
         }
     }
 }

@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.openFileButton = new System.Windows.Forms.Button();
             this.strBox = new System.Windows.Forms.TextBox();
             this.dexBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.changeStats = new System.Windows.Forms.Button();
+            this.changeStatsButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.StrengthSync = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -42,7 +42,6 @@
             this.atkBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.hexBox = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.swimBox = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
@@ -81,19 +80,20 @@
             this.unarmedBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.defBox = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.teleportButton = new System.Windows.Forms.Button();
+            this.label25 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // openFileButton
             // 
-            this.button1.Location = new System.Drawing.Point(230, 22);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(174, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Open PLAYER.DAT...";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.openFileButton.Location = new System.Drawing.Point(230, 22);
+            this.openFileButton.Name = "openFileButton";
+            this.openFileButton.Size = new System.Drawing.Size(174, 23);
+            this.openFileButton.TabIndex = 0;
+            this.openFileButton.Text = "Open PLAYER.DAT...";
+            this.openFileButton.UseVisualStyleBackColor = true;
+            this.openFileButton.Click += new System.EventHandler(this.openFileButton_Click);
             // 
             // strBox
             // 
@@ -129,15 +129,15 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Dexterity:";
             // 
-            // changeStats
+            // changeStatsButton
             // 
-            this.changeStats.Location = new System.Drawing.Point(246, 331);
-            this.changeStats.Name = "changeStats";
-            this.changeStats.Size = new System.Drawing.Size(129, 23);
-            this.changeStats.TabIndex = 5;
-            this.changeStats.Text = "Change Stats";
-            this.changeStats.UseVisualStyleBackColor = true;
-            this.changeStats.Click += new System.EventHandler(this.button2_Click);
+            this.changeStatsButton.Location = new System.Drawing.Point(246, 331);
+            this.changeStatsButton.Name = "changeStatsButton";
+            this.changeStatsButton.Size = new System.Drawing.Size(129, 23);
+            this.changeStatsButton.TabIndex = 5;
+            this.changeStatsButton.Text = "Change Stats";
+            this.changeStatsButton.UseVisualStyleBackColor = true;
+            this.changeStatsButton.Click += new System.EventHandler(this.changeStatsButton_Click);
             // 
             // label3
             // 
@@ -202,7 +202,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.hexBox);
             this.groupBox1.Controls.Add(this.label24);
             this.groupBox1.Controls.Add(this.swimBox);
             this.groupBox1.Controls.Add(this.label23);
@@ -244,7 +243,7 @@
             this.groupBox1.Controls.Add(this.intBox);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.strBox);
-            this.groupBox1.Controls.Add(this.changeStats);
+            this.groupBox1.Controls.Add(this.changeStatsButton);
             this.groupBox1.Controls.Add(this.atkBox);
             this.groupBox1.Controls.Add(this.dexBox);
             this.groupBox1.Controls.Add(this.label5);
@@ -256,14 +255,6 @@
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Desired Stats";
-            // 
-            // hexBox
-            // 
-            this.hexBox.Location = new System.Drawing.Point(461, 152);
-            this.hexBox.Name = "hexBox";
-            this.hexBox.Size = new System.Drawing.Size(100, 20);
-            this.hexBox.TabIndex = 51;
-            this.hexBox.Text = "00";
             // 
             // label24
             // 
@@ -588,26 +579,36 @@
             this.defBox.TabIndex = 13;
             this.defBox.Text = "50";
             // 
-            // button2
+            // teleportButton
             // 
-            this.button2.Location = new System.Drawing.Point(760, 156);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(118, 23);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Teleport To Start";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.teleportButton.Location = new System.Drawing.Point(713, 446);
+            this.teleportButton.Name = "teleportButton";
+            this.teleportButton.Size = new System.Drawing.Size(118, 23);
+            this.teleportButton.TabIndex = 15;
+            this.teleportButton.Text = "Teleport To Start";
+            this.teleportButton.UseVisualStyleBackColor = true;
+            this.teleportButton.Click += new System.EventHandler(this.teleportButton_Click);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(680, 9);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(267, 13);
+            this.label25.TabIndex = 16;
+            this.label25.Text = "UNDER DEVELOPMENT: USE AT YOUR OWN RISK";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(959, 498);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.label25);
+            this.Controls.Add(this.teleportButton);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.StrengthSync);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.openFileButton);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
             this.Text = "UW Save Editor";
@@ -620,12 +621,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button openFileButton;
         private System.Windows.Forms.TextBox strBox;
         private System.Windows.Forms.TextBox dexBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button changeStats;
+        private System.Windows.Forms.Button changeStatsButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox StrengthSync;
         private System.Windows.Forms.Label label5;
@@ -672,8 +673,8 @@
         private System.Windows.Forms.TextBox swimBox;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TextBox appBox;
-        private System.Windows.Forms.TextBox hexBox;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button teleportButton;
+        private System.Windows.Forms.Label label25;
     }
 }
 

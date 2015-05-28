@@ -1,5 +1,5 @@
 # UWSaveEditor
-A save game editor for ultima Underworld.
+A save game editor for Ultima Underworld.
 
 This is still heavily under construction, and using this program may damage or corrupt your save files. 
 

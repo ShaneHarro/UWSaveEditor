@@ -8,7 +8,7 @@ USE AT YOUR OWN RISK!
 
 Some notes:
 
-All stats (starting with Strength) start at offset 0x1F. This utility does not edit Vitality and Mana (pool, not stat) as I have yet to discover the relationship between the bytes stored in their offsets and the their actual in game values.
+All stats (starting with Strength) start at offset 0x1F (At least with my current tests...This might differ depending on the particular save file!). This utility does not edit Vitality and Mana (pool, not stat) as I have yet to discover the relationship between the bytes stored in their offsets and the their actual in game values.
 
 The program requires you to input your current in-game strength to calculate the "Code Term". The code term created depends on your name, so a single stat (strength in this case) is required to "work backwards" to figure it out. 
 

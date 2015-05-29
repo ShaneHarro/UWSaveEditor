@@ -8,6 +8,8 @@ USE AT YOUR OWN RISK!
 
 Some notes:
 
+******************CHANGING STATS********************
+
 All stats (starting with Strength) start at offset 0x1F (At least with my current tests...This might differ depending on the particular save file!). This utility does not edit Vitality and Mana (pool, not stat) as I have yet to discover the relationship between the bytes stored in their offsets and the their actual in game values.
 
 The program requires you to input your current in-game strength to calculate the "Code Term". The code term created depends on your name, so a single stat (strength in this case) is required to "work backwards" to figure it out. 
@@ -31,8 +33,17 @@ If the code term hits 0xFF (255, max size of a byte) then it tries to increment 
 Please remember that all Code Terms are different for each character and I have not yet figured out a way to automatically calculate the term without having the user enter their strength level first! Looking forward to hearing from someone who has this figured out!
 
 
+******************CHANGING COORDINATES********************
 
+The coordinates for the player seem to start at offset 0x55. Each coordinate is stored as an int16 in (seemingly) little endian.
 
+Offset 0x55 and 0x56 store the players X coordinate (The value in 0x56 seems to make huge jumps when changed, while the byte in 0x55 makes minor jumps)
+
+The Y coordinate is stored in 0x57 and 0x58, and like the X coordinate, the second byte makes the largest jumps.
+
+Z coordinate is stored in 0x59 and 0x5A, same rule above applies here.
+
+***********************************************************
 
 
 Many thanks to Phat Tran who's documentation helped write this program:

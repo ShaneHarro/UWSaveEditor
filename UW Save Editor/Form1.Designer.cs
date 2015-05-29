@@ -87,6 +87,7 @@
             this.startRadio = new System.Windows.Forms.RadioButton();
             this.spiderRadio = new System.Windows.Forms.RadioButton();
             this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -654,17 +655,27 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(710, 99);
+            this.label26.Location = new System.Drawing.Point(712, 77);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(190, 13);
             this.label26.TabIndex = 18;
             this.label26.Text = "This will only work if you are on level 1:";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(639, 95);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(323, 13);
+            this.label27.TabIndex = 19;
+            this.label27.Text = "(NOTE: This only works on some characters. Use at your own risk!)";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(974, 498);
+            this.Controls.Add(this.label27);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.label25);
             this.Controls.Add(this.label7);
@@ -745,6 +756,7 @@
         private System.Windows.Forms.RadioButton startRadio;
         private System.Windows.Forms.RadioButton spiderRadio;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label27;
     }
 }
 

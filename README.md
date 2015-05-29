@@ -1,9 +1,10 @@
 # UWSaveEditor
 A save game editor for Ultima Underworld.
 
-This is still heavily under construction, and using this program may damage or corrupt your save files. 
+This is still heavily under construction, and using this program may damage or corrupt your save files. The teleport feature only currently works with certain characters. Please create a back up of your PLAYER.DAT file before using!
 
-USE AT YOUR OWN RISK!
+
+I will not be responsible for loss of player data! <strong><h3>USE AT YOUR OWN RISK!</h3></strong>
 
 
 Some notes:
@@ -42,6 +43,9 @@ Offset 0x55 and 0x56 store the players X coordinate (The value in 0x56 seems to 
 The Y coordinate is stored in 0x57 and 0x58, and like the X coordinate, the second byte makes the largest jumps.
 
 Z coordinate is stored in 0x59 and 0x5A, same rule above applies here.
+
+
+The bytes that actually determine the position seem to differ between characters. The current teleportation feature in the program only seems to work on some characters, and not others.
 
 ***********************************************************
 

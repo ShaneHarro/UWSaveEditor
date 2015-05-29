@@ -20,6 +20,15 @@
  * Rotation is stored in 0x5B and 0x5C in same reversed fashion
  */
 
+
+//Name stuff - First character = Offset 0x01
+//Note: Each letter byte does not depend on the byte before it (Maybe with exception of 1st letter to offset 0x00?) 
+//Note: Each offset doesn't represent the same character with the same byte. e.g "FF" in 0x01 will be a different character than "FF" in 0x02
+//Note: Case sensetive
+//Note: lower case and upper case bytes of the same letter have a difference of 0x20 (i.e if upper case S was a 0x20, then lower case S would be either 0x00 or 0x40, could be either side) 
+
+
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -119,11 +128,24 @@ namespace UW_Save_Editor
                     //Add 3 to term
                     termTemp += 0x03;
 
-                    //If code term goes above maximum byte size of 0xFF (255), Bring it back to 0x02 to prevent overflow
-                    if (termTemp > 0xFF)
+                    //Check code terms to make sure they're not incrementing past 0xFF
+                    if (termTemp == 0xFF)
                     {
                        termTemp = 0x02;
                     }
+
+                    //Check code terms to make sure they're not incrementing past 0xFF
+                    if (termTemp == 0xFE)
+                    {
+                        termTemp = 0x01;
+                    }
+
+                    //Check code terms to make sure they're not incrementing past 0xFF
+                    if (termTemp == 0xFD)
+                    {
+                        termTemp = 0x00;
+                    }
+
 
                     //Store our term + 3 back into term string for next loop
                     codeTerm = termTemp.ToString("X");
@@ -170,6 +192,7 @@ namespace UW_Save_Editor
         {       
             if (ofd.ShowDialog() == DialogResult.OK);
             {
+                //Check if correct file extension 
                 string filePath = ofd.FileName;
                 string fileName = Path.GetFileName(filePath);
                 string fileExtension = fileName.GetLast(4);
@@ -191,24 +214,69 @@ namespace UW_Save_Editor
         //Teleportation still under construction
         private void teleportButton_Click(object sender, EventArgs e)
         {
-          //Start coordinates: EA 14 CA 13 14 14
+          
             if (fileOK == true)
             {
+
                 fs = new FileStream(ofd.FileName, FileMode.Open);
 
-                fs.Position = 0x55;
+                // EA 14 CA 13 14 14 - Start coordinate
+                if (startRadio.Checked)
+                {
+                    fs.Position = 0x55;
 
-                //x (or y?)
-                fs.WriteByte(0xEA);
-                fs.WriteByte(0x14);
+                    //x (or y?)
+                    fs.WriteByte(0xEA);
+                    fs.WriteByte(0x14);
 
-                //y (or x?)
-                fs.WriteByte(0xCA);
-                fs.WriteByte(0x13);
+                    //y (or x?)
+                    fs.WriteByte(0xCA);
+                    fs.WriteByte(0x13);
 
-                //z
-                fs.WriteByte(0x14);
-                fs.WriteByte(0x14);
+                    //z
+                    fs.WriteByte(0x14);
+                    fs.WriteByte(0x14);
+                }
+
+
+                //CA 27 81 22 15 14 - Gray Goblins
+                if (grayRadio.Checked)
+                {
+                    fs.Position = 0x55;
+
+                    //x (or y?)
+                    fs.WriteByte(0xCA);
+                    fs.WriteByte(0x27);
+
+                    //y (or x?)
+                    fs.WriteByte(0x81);
+                    fs.WriteByte(0x22);
+
+                    //z
+                    fs.WriteByte(0x15);
+                    fs.WriteByte(0x14);
+                }
+
+                //64 14 93 27 13 14 - Spider Cave
+                if (spiderRadio.Checked)
+                {
+                    fs.Position = 0x55;
+
+                    //x (or y?)
+                    fs.WriteByte(0x64);
+                    fs.WriteByte(0x14);
+
+                    //y (or x?)
+                    fs.WriteByte(0x93);
+                    fs.WriteByte(0x27);
+
+                    //z
+                    fs.WriteByte(0x13);
+                    fs.WriteByte(0x14);
+                }
+
+               
+               
 
                 MessageBox.Show("Coordinates updated!");
                 fs.Close();

@@ -82,7 +82,13 @@
             this.defBox = new System.Windows.Forms.TextBox();
             this.teleportButton = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grayRadio = new System.Windows.Forms.RadioButton();
+            this.startRadio = new System.Windows.Forms.RadioButton();
+            this.spiderRadio = new System.Windows.Forms.RadioButton();
+            this.label26 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileButton
@@ -581,11 +587,11 @@
             // 
             // teleportButton
             // 
-            this.teleportButton.Location = new System.Drawing.Point(713, 446);
+            this.teleportButton.Location = new System.Drawing.Point(84, 326);
             this.teleportButton.Name = "teleportButton";
             this.teleportButton.Size = new System.Drawing.Size(118, 23);
             this.teleportButton.TabIndex = 15;
-            this.teleportButton.Text = "Teleport To Start";
+            this.teleportButton.Text = "Teleport";
             this.teleportButton.UseVisualStyleBackColor = true;
             this.teleportButton.Click += new System.EventHandler(this.teleportButton_Click);
             // 
@@ -598,22 +604,81 @@
             this.label25.TabIndex = 16;
             this.label25.Text = "UNDER DEVELOPMENT: USE AT YOUR OWN RISK";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.spiderRadio);
+            this.groupBox2.Controls.Add(this.grayRadio);
+            this.groupBox2.Controls.Add(this.startRadio);
+            this.groupBox2.Controls.Add(this.teleportButton);
+            this.groupBox2.Location = new System.Drawing.Point(666, 115);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(281, 371);
+            this.groupBox2.TabIndex = 17;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Teleport";
+            // 
+            // grayRadio
+            // 
+            this.grayRadio.AutoSize = true;
+            this.grayRadio.Location = new System.Drawing.Point(106, 63);
+            this.grayRadio.Name = "grayRadio";
+            this.grayRadio.Size = new System.Drawing.Size(85, 17);
+            this.grayRadio.TabIndex = 17;
+            this.grayRadio.TabStop = true;
+            this.grayRadio.Text = "Gray Goblins";
+            this.grayRadio.UseVisualStyleBackColor = true;
+            // 
+            // startRadio
+            // 
+            this.startRadio.AutoSize = true;
+            this.startRadio.Checked = true;
+            this.startRadio.Location = new System.Drawing.Point(106, 35);
+            this.startRadio.Name = "startRadio";
+            this.startRadio.Size = new System.Drawing.Size(47, 17);
+            this.startRadio.TabIndex = 16;
+            this.startRadio.TabStop = true;
+            this.startRadio.Text = "Start";
+            this.startRadio.UseVisualStyleBackColor = true;
+            // 
+            // spiderRadio
+            // 
+            this.spiderRadio.AutoSize = true;
+            this.spiderRadio.Location = new System.Drawing.Point(106, 92);
+            this.spiderRadio.Name = "spiderRadio";
+            this.spiderRadio.Size = new System.Drawing.Size(83, 17);
+            this.spiderRadio.TabIndex = 18;
+            this.spiderRadio.TabStop = true;
+            this.spiderRadio.Text = "Spider Cave";
+            this.spiderRadio.UseVisualStyleBackColor = true;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(710, 99);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(190, 13);
+            this.label26.TabIndex = 18;
+            this.label26.Text = "This will only work if you are on level 1:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(959, 498);
+            this.ClientSize = new System.Drawing.Size(974, 498);
+            this.Controls.Add(this.label26);
             this.Controls.Add(this.label25);
-            this.Controls.Add(this.teleportButton);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.StrengthSync);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.openFileButton);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox2);
             this.Name = "Form1";
             this.Text = "UW Save Editor";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -675,6 +740,11 @@
         private System.Windows.Forms.TextBox appBox;
         private System.Windows.Forms.Button teleportButton;
         private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton grayRadio;
+        private System.Windows.Forms.RadioButton startRadio;
+        private System.Windows.Forms.RadioButton spiderRadio;
+        private System.Windows.Forms.Label label26;
     }
 }
 

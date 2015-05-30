@@ -105,11 +105,12 @@ All coordinates are stored as int16's starting at offset 0x55. They seem to
 be stored as little endian (that is, the first byte out of the two seems to
 do minor jumps when edited, where as the second byte seems to do major jumps.)
 
-0x55 and 0x56 = X coordinates
-0x57 and 0x58 = Y coordinates
-0x59 and 0x5A = Z coordinates
-0x5B and 0x5C = Heading/Rotation
-
+<ul>
+    <li>0x55 and 0x56 = X coordinates</li>
+    <li>0x57 and 0x58 = Y coordinates</li>
+    <li>0x59 and 0x5A = Z coordinates</li>
+    <li>0x5B and 0x5C = Heading/Rotation</li>
+</ul>
 
 ***********************************************************
 

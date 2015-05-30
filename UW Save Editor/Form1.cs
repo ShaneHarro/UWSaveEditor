@@ -62,21 +62,20 @@ namespace UW_Save_Editor
             int appraise = int.Parse(appBox.Text);
             int swimming = int.Parse(swimBox.Text);
 
-
-            int startXOR;
-            int xorIncrement = 0x03;
+            const byte strengthOffset = 0x1F;
             const int NAME_LENGTH = 15;
             const int NO_OF_BYTES = 53;
+            int startXOR;
+            int xorIncrement = 0x03;
+            int statLevelWanted;
             char nameCharacter;
             string nameString = "";
             byte byteConvered;
-            int statReq;
 
 
             //Array that holds all the user input fields
             int[] stats = {strength, dexterity, intelligence, attack, defense, unarmed, sword, axe, mace, missile, mana, lore, casting, traps, search, track, sneak, repair,
                            charm, picklock, acrobat, appraise, swimming};
-
 
             //Encoded bytes read before XOR calculations
             int[] encodedBytes = new int[NO_OF_BYTES];
@@ -97,10 +96,7 @@ namespace UW_Save_Editor
                 //Will read offset 0x00 (this will be our starting XOR value)
                 startXOR = fs.ReadByte();
 
-               // fs.Position = 0x01;
-
-
-                //Read all the bytes between 0x01 (The first character of name) and 0x35 (Value which determines swimming)
+                 //Read all the bytes between 0x01 (The first character of name) and 0x35 (Value which determines swimming)
                 for (int i = 0; i < encodedBytes.Length; i++)
                 {
                     encodedBytes[i] = fs.ReadByte();
@@ -143,7 +139,7 @@ namespace UW_Save_Editor
                 }
 
                 //Show characters name on UI
-                playerNameLabel.Text += nameString;
+                playerNameLabel.Text = "Player name: " + nameString;
 
                 //Calculate all our XOR terms 
                 for (int i = 0; i < XORterms.Length; i++)
@@ -151,16 +147,15 @@ namespace UW_Save_Editor
                     XORterms[i] = decodedValues[i] ^ encodedBytes[i];
                 }
 
-
-                //Set our position to strength byte
-                fs.Position = 0x1F;
+                //Set our position to strength byte offset (starting offset for all stats)
+                fs.Position = strengthOffset;
 
                 //Loop through all bytes between strength and swimming, calculate and set value accordingly
                 for (int i = 0; i < stats.Length; i++)
                 {
                     //i + 30 because strength starts at offset 31 (relative to length between offset 0x01 and 0x1F) and arrays start at [0]
-                    statReq = stats[i] ^ XORterms[i + 30];
-                    byteConvered = Convert.ToByte(statReq);
+                    statLevelWanted = stats[i] ^ XORterms[i + 30];
+                    byteConvered = Convert.ToByte(statLevelWanted);
                     fs.WriteByte(byteConvered);
                 }
 
@@ -169,102 +164,14 @@ namespace UW_Save_Editor
                 MessageBox.Show("Stats updated!");
 
             }
-        }
-
-
-                /*
-
-
-                        //Will read offset 0x36 after previous edits
-                        strengthByte = fs.ReadByte();
-
-                //Calculate term
-                codeTerm = calcTerm(int.Parse(StrengthSync.Text), strengthByte);
-
-                //Loop for as many as there are stats
-                for (int i = 0; i < stats.Length; i++ )
-                {
-                    //If we are on the first loop, set our position offset back to the byte that holds Strength
-                    if (i == 0)
-                    {
-                         fs.Position = 0x1F;
-                    }
-
-                    //Calculate the byte change required to change to requested value
-                    changeByte = calcChange(stats[i], codeTerm);
-
-                    //Convert "ChangeByte" string returned from function into a byte
-                    changeByteConvert = byte.Parse(changeByte);
-
-                    //Write our new stat calculation
-                    fs.WriteByte(changeByteConvert);
-
-                    //Converts term hex string into a usable hex value
-                    int termTemp = int.Parse(codeTerm, NumberStyles.HexNumber);
-                  
-                    //Add 3 to term
-                    termTemp += 0x03;
-
-                    //Check code terms to make sure they're not incrementing past 0xFF
-                    if (termTemp == 0xFF)
-                    {
-                       termTemp = 0x02;
-                    }
-
-                    //Check code terms to make sure they're not incrementing past 0xFF
-                    if (termTemp == 0xFE)
-                    {
-                        termTemp = 0x01;
-                    }
-
-                    //Check code terms to make sure they're not incrementing past 0xFF
-                    if (termTemp == 0xFD)
-                    {
-                        termTemp = 0x00;
-                    }
-
-
-                    //Store our term + 3 back into term string for next loop
-                    codeTerm = termTemp.ToString("X");
-                }
-                                         
-                fs.Close();
-
-                //Update new "strength sync" with last stat change
-                StrengthSync.Text = strBox.Text;
-
-                MessageBox.Show("Stats updated!");
-            }
 
             else
             {
-                MessageBox.Show("No file selected.");
-            }           
+                MessageBox.Show("Please select a valid file.");
+            }
         }
 
-        //Calculate term based on strength
-        string calcTerm(int strengthValue, int StrengthByte)
-        {
-            string hexTerm;
-            int XORvalue;
-            XORvalue = strengthValue ^ StrengthByte;
-            hexTerm = XORvalue.ToString("X");
 
-            return hexTerm;
-        }
-
-        //Calculate term based on strength
-        string calcChange(int stat, string termString)
-        {
-            int XORchange;
-            int termValue = int.Parse(termString, NumberStyles.AllowHexSpecifier);
-            XORchange = stat ^ termValue;
-            string changeByte = XORchange.ToString();
-
-            return changeByte;
-        }
-
-*/
         private void openFileButton_Click(object sender, EventArgs e)
         {       
             if (ofd.ShowDialog() == DialogResult.OK);
@@ -290,11 +197,9 @@ namespace UW_Save_Editor
 
         //Teleportation still under construction
         private void teleportButton_Click(object sender, EventArgs e)
-        {
-          
+        {        
             if (fileOK == true)
             {
-
                 fs = new FileStream(ofd.FileName, FileMode.Open);
 
                 // EA 14 CA 13 14 14 - Start coordinate
@@ -314,7 +219,6 @@ namespace UW_Save_Editor
                     fs.WriteByte(0x14);
                     fs.WriteByte(0x14);
                 }
-
 
                 //CA 27 81 22 15 14 - Gray Goblins
                 if (grayRadio.Checked)
@@ -350,17 +254,15 @@ namespace UW_Save_Editor
                     //z
                     fs.WriteByte(0x13);
                     fs.WriteByte(0x14);
-                }
-
-               
-               
+                }     
 
                 MessageBox.Show("Coordinates updated!");
                 fs.Close();
             }
         }
-    }
 
+
+    }
 
     public static class StringExtension
     {

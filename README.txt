@@ -68,8 +68,8 @@ that's now our new Starting XOR value to work off for the rest of the file.
 All stats (starting with Strength) start at offset 0x1F and end with offset 0x35 
 (Swimming - This utility does not yet edit Vitality or Mana pools.)
 
-The values read from the previously explained XOR "decryption". Once the actual
-in game value is decoded and read, it's HEX equivalent value and be XOR'D with
+The values are read from the previously explained XOR "decryption". Once the actual
+in game value is decoded and read, it's HEX equivalent value can be XOR'D with
 the byte found in the stats offset to find a "term". Using this term, we can
 edit our stat as required.
 

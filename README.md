@@ -117,5 +117,5 @@ do minor jumps when edited, where as the second byte seems to do major jumps.)
 Many thanks to Phat Tran who's documentation helped write this program:
 ftp://files.chatnfiles.com/Infomagic-Windows/Infomagic-Games-for-Daze-Summer-95-1/EDITORS/UWEDITOR/UWEDITOR.TXT
 
-And a HUGE thank you to this documentation which helped me figure out the XOR "encrpytion".
+And a HUGE thank you to this documentation which helped me figure out the XOR "encryption".
 http://bootstrike.com/Ultima/Online/uwformat.php

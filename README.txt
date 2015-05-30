@@ -1,4 +1,3 @@
-# UWSaveEditor
 A save game editor for Ultima Underworld.
 
 This is still heavily under construction, and using this program may damage or
@@ -9,10 +8,9 @@ The teleportation utility is still extremely broken!
 
 I will not be responsible for loss of player data!
 
-<strong><h3>USE AT YOUR OWN RISK!</h3></strong>
+USE AT YOUR OWN RISK!
 
-
-<strong>Some notes:</strong>
+Some notes:
 
 *****************How the values are stored*****************
 
@@ -24,7 +22,7 @@ where "increment" has an ititial value of 3 and increments by 3 for each byte.
 
 Example: Let's say we had a file that (for the first few bytes) looked like this:
 
-<strong>F9  AF  97  63</strong>
+F9  AF  97  63
 
 "F9" would be our starting XOR value. "AF" would then be XOR'd with F9 + 3 (which
 is FC)
@@ -105,12 +103,12 @@ All coordinates are stored as int16's starting at offset 0x55. They seem to
 be stored as little endian (that is, the first byte out of the two seems to
 do minor jumps when edited, where as the second byte seems to do major jumps.)
 
-<ul>
-    <li>0x55 and 0x56 = X coordinates</li>
-    <li>0x57 and 0x58 = Y coordinates</li>
-    <li>0x59 and 0x5A = Z coordinates</li>
-    <li>0x5B and 0x5C = Heading/Rotation</li>
-</ul>
+
+    0x55 and 0x56 = X coordinates
+    0x57 and 0x58 = Y coordinates
+    0x59 and 0x5A = Z coordinates
+    0x5B and 0x5C = Heading/Rotation
+
 
 ***********************************************************
 

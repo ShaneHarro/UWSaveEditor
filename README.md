@@ -41,27 +41,24 @@ do a sort of "over flow" and the incrementation value is set to equal 0 (but sti
 adds 3 each byte).
 
 Some code follows:
-<code>
-if (xorIncrement + startXOR > 0xFF)
-{
+
+
+
     if (xorIncrement + startXOR == 0x100)
     {
         startXOR = 0x00;
     }
-
     if (xorIncrement + startXOR == 0x101)
     {
         startXOR = 0x01;
     }
-
     if (xorIncrement + startXOR == 0x102)
     {
         startXOR = 0x02;
     }
-
     xorIncrement = 0;
-}
-</code>
+
+
 
 As you can see, it basically "peels" the 1 off the front of the hex value and
 that's now our new Starting XOR value to work off for the rest of the file.

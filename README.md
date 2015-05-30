@@ -1,54 +1,123 @@
 # UWSaveEditor
 A save game editor for Ultima Underworld.
 
-This is still heavily under construction, and using this program may damage or corrupt your save files. The teleport feature only currently works with certain characters. Please create a back up of your PLAYER.DAT file before using!
+This is still heavily under construction, and using this program may damage or
+corrupt your save files. The teleport feature only currently works with certain
+characters. Please create a back up of your PLAYER.DAT file before using!
+
+The teleportation utility is still extremely broken!
+
+I will not be responsible for loss of player data!
+
+<strong><h3>USE AT YOUR OWN RISK!</h3></strong>
 
 
-I will not be responsible for loss of player data! <strong><h3>USE AT YOUR OWN RISK!</h3></strong>
+<strong>Some notes:</strong>
+
+*****************How the values are stored*****************
+
+The developers over at Origin got a little tricky with how the player data is 
+stored in the game. The starting byte in the PLAYER.DAT file is used as our
+"Starting XOR value". To get the actual "decoded" value of the players stats,
+Each byte starting at offset 0x01 has to be XOR'd with our (Starting XOR VALUE + increment)
+where "increment" has an ititial value of 3 and increments by 3 for each byte.
+
+Example: Let's say we had a file that (for the first few bytes) looked like this:
+
+<strong>F9  AF  97  63</strong>
+
+"F9" would be our starting XOR value. "AF" would then be XOR'd with F9 + 3 (which
+is FC)
+
+AF XOR FC = 53  (53 is our decoded value!)
+
+Then for the next byte along "97" it's:
+
+97 XOR (F9 + 6) = 97 XOR FF = 68  (68 is our next decoded value!)
 
 
-Some notes:
+But what happens when our starting XOR VALUE + increment goes over FF? The values
+do a sort of "over flow" and the incrementation value is set to equal 0 (but still
+adds 3 each byte).
+
+Some code follows:
+
+if (xorIncrement + startXOR > 0xFF)
+{
+    if (xorIncrement + startXOR == 0x100)
+    {
+        startXOR = 0x00;
+    }
+
+    if (xorIncrement + startXOR == 0x101)
+    {
+        startXOR = 0x01;
+    }
+
+    if (xorIncrement + startXOR == 0x102)
+    {
+        startXOR = 0x02;
+    }
+
+    xorIncrement = 0;
+}
+
+As you can see, it basically "peels" the 1 off the front of the hex value and
+that's now our new Starting XOR value to work off for the rest of the file.
+
+
 
 ******************CHANGING STATS********************
 
-All stats (starting with Strength) start at offset 0x1F (At least with my current tests...This might differ depending on the particular save file!). This utility does not edit Vitality and Mana (pool, not stat) as I have yet to discover the relationship between the bytes stored in their offsets and the their actual in game values.
+All stats (starting with Strength) start at offset 0x1F and end with offset 0x35 
+(Swimming - This utility does not yet edit Vitality or Mana pools.)
 
-The program requires you to input your current in-game strength to calculate the "Code Term". The code term created depends on your name, so a single stat (strength in this case) is required to "work backwards" to figure it out. 
+The values read from the previously explained XOR "decryption". Once the actual
+in game value is decoded and read, it's HEX equivalent value and be XOR'D with
+the byte found in the stats offset to find a "term". Using this term, we can
+edit our stat as required.
 
-If your in-game strength is 50 (32 HEX) and the current byte at offset 0x1F is 64 HEX, then you <strong>XOR</strong> these two values together to calculate your code term.
+Example: Let's say our in-game strength is currently 21 and we want a strength 
+level of 50.
 
-0x32 <strong>XOR</strong> 0x64  = 0x56
+First convert our 21 strength decimal into hexadecimal (which is 15)
 
-0x56 is your code term. 
+Now we XOR 15 with the byte found at the strength offset (currently 3D)
 
-Using this code term, we can now figure out which byte we need to put in 0x1F to change our strength. If we wanted to change our strength to 60 (3C HEX), we just <strong>XOR</strong> our code term with desired level (in hex).
+15 XOR 3D = 28
 
-0x3C <strong>XOR</strong> 0x56 = 0x6A
+28 is our term we can now use to edit our values to whatever we want!
 
-We can now place 0x6A in offset 0x1F to make our strength 60!
+Simply get the hex equivalent of the strength you want (We want 50, so the hex
+equivilant is 32) and XOR it with our term
 
-For each stat after strength, the "Code Term" is incremented by 3, so for "Dexterity" (The next stat after strength) the code term in this example would be 0x59.
+32 XOR 28 = 1A
 
-If the code term hits 0xFF (255, max size of a byte) then it tries to increment another 3, it "rolls over" back to 0x02.
+We can now write 1A to the offset containing the strength value and it will be
+set to 50! We can continue to do this for each stat as required!
 
-Please remember that all Code Terms are different for each character and I have not yet figured out a way to automatically calculate the term without having the user enter their strength level first! Looking forward to hearing from someone who has this figured out!
 
 
 ******************CHANGING COORDINATES********************
 
-The coordinates for the player seem to start at offset 0x55. Each coordinate is stored as an int16 in (seemingly) little endian.
+Please remember that this program has an EXTREMELY broken teleportation tool and
+I would advise against using it until further development has been done on it.
 
-Offset 0x55 and 0x56 store the players X coordinate (The value in 0x56 seems to make huge jumps when changed, while the byte in 0x55 makes minor jumps)
+All coordinates are stored as int16's starting at offset 0x55. They seem to
+be stored as little endian (that is, the first byte out of the two seems to
+do minor jumps when edited, where as the second byte seems to do major jumps.)
 
-The Y coordinate is stored in 0x57 and 0x58, and like the X coordinate, the second byte makes the largest jumps.
+0x55 and 0x56 = X coordinates
+0x57 and 0x58 = Y coordinates
+0x59 and 0x5A = Z coordinates
+0x5B and 0x5C = Heading/Rotation
 
-Z coordinate is stored in 0x59 and 0x5A, same rule above applies here.
-
-
-The bytes that actually determine the position seem to differ between characters. The current teleportation feature in the program only seems to work on some characters, and not others.
 
 ***********************************************************
 
 
 Many thanks to Phat Tran who's documentation helped write this program:
 ftp://files.chatnfiles.com/Infomagic-Windows/Infomagic-Games-for-Daze-Summer-95-1/EDITORS/UWEDITOR/UWEDITOR.TXT
+
+And a HUGE thank you to this documentation which helped me figure out the XOR "encrpytion".
+http://bootstrike.com/Ultima/Online/uwformat.php

@@ -34,13 +34,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.changeStatsButton = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.StrengthSync = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.intBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.atkBox = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label24 = new System.Windows.Forms.Label();
             this.swimBox = new System.Windows.Forms.TextBox();
@@ -83,18 +80,19 @@
             this.teleportButton = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.spiderRadio = new System.Windows.Forms.RadioButton();
             this.grayRadio = new System.Windows.Forms.RadioButton();
             this.startRadio = new System.Windows.Forms.RadioButton();
-            this.spiderRadio = new System.Windows.Forms.RadioButton();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
+            this.playerNameLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileButton
             // 
-            this.openFileButton.Location = new System.Drawing.Point(230, 22);
+            this.openFileButton.Location = new System.Drawing.Point(219, 53);
             this.openFileButton.Name = "openFileButton";
             this.openFileButton.Size = new System.Drawing.Size(174, 23);
             this.openFileButton.TabIndex = 0;
@@ -146,24 +144,6 @@
             this.changeStatsButton.UseVisualStyleBackColor = true;
             this.changeStatsButton.Click += new System.EventHandler(this.changeStatsButton_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(108, 60);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(455, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Please input your current strength from in-game (This helps the program to \"sync\"" +
-    " with the data)";
-            // 
-            // StrengthSync
-            // 
-            this.StrengthSync.Location = new System.Drawing.Point(304, 88);
-            this.StrengthSync.Name = "StrengthSync";
-            this.StrengthSync.Size = new System.Drawing.Size(100, 20);
-            this.StrengthSync.TabIndex = 7;
-            this.StrengthSync.Text = "50";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -198,17 +178,9 @@
             this.atkBox.TabIndex = 11;
             this.atkBox.Text = "50";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(211, 91);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(87, 13);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Current Strength:";
-            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.playerNameLabel);
             this.groupBox1.Controls.Add(this.label24);
             this.groupBox1.Controls.Add(this.swimBox);
             this.groupBox1.Controls.Add(this.label23);
@@ -618,6 +590,17 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Teleport";
             // 
+            // spiderRadio
+            // 
+            this.spiderRadio.AutoSize = true;
+            this.spiderRadio.Location = new System.Drawing.Point(106, 92);
+            this.spiderRadio.Name = "spiderRadio";
+            this.spiderRadio.Size = new System.Drawing.Size(83, 17);
+            this.spiderRadio.TabIndex = 18;
+            this.spiderRadio.TabStop = true;
+            this.spiderRadio.Text = "Spider Cave";
+            this.spiderRadio.UseVisualStyleBackColor = true;
+            // 
             // grayRadio
             // 
             this.grayRadio.AutoSize = true;
@@ -641,17 +624,6 @@
             this.startRadio.Text = "Start";
             this.startRadio.UseVisualStyleBackColor = true;
             // 
-            // spiderRadio
-            // 
-            this.spiderRadio.AutoSize = true;
-            this.spiderRadio.Location = new System.Drawing.Point(106, 92);
-            this.spiderRadio.Name = "spiderRadio";
-            this.spiderRadio.Size = new System.Drawing.Size(83, 17);
-            this.spiderRadio.TabIndex = 18;
-            this.spiderRadio.TabStop = true;
-            this.spiderRadio.Text = "Spider Cave";
-            this.spiderRadio.UseVisualStyleBackColor = true;
-            // 
             // label26
             // 
             this.label26.AutoSize = true;
@@ -670,6 +642,15 @@
             this.label27.TabIndex = 19;
             this.label27.Text = "(NOTE: This only works on some characters. Use at your own risk!)";
             // 
+            // playerNameLabel
+            // 
+            this.playerNameLabel.AutoSize = true;
+            this.playerNameLabel.Location = new System.Drawing.Point(403, 174);
+            this.playerNameLabel.Name = "playerNameLabel";
+            this.playerNameLabel.Size = new System.Drawing.Size(70, 13);
+            this.playerNameLabel.TabIndex = 51;
+            this.playerNameLabel.Text = "Player Name:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -678,9 +659,6 @@
             this.Controls.Add(this.label27);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.label25);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.StrengthSync);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.openFileButton);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
@@ -703,13 +681,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button changeStatsButton;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox StrengthSync;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox intBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox atkBox;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox defBox;
@@ -757,6 +732,7 @@
         private System.Windows.Forms.RadioButton spiderRadio;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label playerNameLabel;
     }
 }
 

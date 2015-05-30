@@ -56,11 +56,6 @@ namespace UW_Save_Editor
 
         private void changeStatsButton_Click(object sender, EventArgs e)
         {
-            int strengthByte;
-            string codeTerm;
-            string changeByte;
-            byte changeByteConvert;
-
             //Grab all the values from our user inputs
             int strength = int.Parse(strBox.Text);
             int dexterity = int.Parse(dexBox.Text);
@@ -86,20 +81,121 @@ namespace UW_Save_Editor
             int appraise = int.Parse(appBox.Text);
             int swimming = int.Parse(swimBox.Text);
 
+
+            int startXOR;
+            int xorIncrement = 0x03;
+            const int NAME_LENGTH = 15;
+            const int NO_OF_BYTES = 53;
+            char nameCharacter;
+            string nameString = "";
+            byte byteConvered;
+            int statReq;
+
+
             //Array that holds all the user input fields
             int[] stats = {strength, dexterity, intelligence, attack, defense, unarmed, sword, axe, mace, missile, mana, lore, casting, traps, search, track, sneak, repair,
                            charm, picklock, acrobat, appraise, swimming};
 
-            //If file open
+
+            //Encoded bytes read before XOR calculations
+            int[] encodedBytes = new int[NO_OF_BYTES];
+
+            //Will store our values after undoing the XOR "encryption"
+            int[] decodedValues = new int[NO_OF_BYTES];
+
+            //All the XOR terms for each byte
+            int[] XORterms = new int[NO_OF_BYTES];
+
+            //If file open and correct format
             if (fileOK == true)
             {
                 fs = new FileStream(ofd.FileName, FileMode.Open);
 
-                //Move to offset for strength so we can read the starting byte
+                fs.Position = 0x00;
+
+                //Will read offset 0x00 (this will be our starting XOR value)
+                startXOR = fs.ReadByte();
+
+               // fs.Position = 0x01;
+
+
+                //Read all the bytes between 0x01 (The first character of name) and 0x35 (Value which determines swimming)
+                for (int i = 0; i < encodedBytes.Length; i++)
+                {
+                    encodedBytes[i] = fs.ReadByte();
+                }
+
+                for (int i = 0; i < decodedValues.Length; i++)
+                {
+                    decodedValues[i] = encodedBytes[i] ^ (startXOR + xorIncrement);
+                    xorIncrement += 3;
+
+                    //If the Starting XOR + our increment goes over 0xFF, check its value and set our values back accordingly
+                    if (xorIncrement + startXOR > 0xFF)
+                    {
+                        MessageBox.Show("Overflow warning: " + (xorIncrement + startXOR).ToString("x"));
+
+                        if (xorIncrement + startXOR == 0x100)
+                        {
+                            startXOR = 0x00;
+                        }
+
+                        if (xorIncrement + startXOR == 0x101)
+                        {
+                            startXOR = 0x01;
+                        }
+
+                        if (xorIncrement + startXOR == 0x102)
+                        {
+                            startXOR = 0x02;
+                        }
+
+                        xorIncrement = 0;
+                    }
+                }
+
+                //Get players name and store it as a string in "nameString"
+                for (int i = 0; i < NAME_LENGTH; i++)
+                {
+                    nameCharacter = (char)decodedValues[i];
+                    nameString += nameCharacter.ToString();
+                }
+
+                //Show characters name on UI
+                playerNameLabel.Text += nameString;
+
+                //Calculate all our XOR terms 
+                for (int i = 0; i < XORterms.Length; i++)
+                {
+                    XORterms[i] = decodedValues[i] ^ encodedBytes[i];
+                }
+
+
+                //Set our position to strength byte
                 fs.Position = 0x1F;
 
-                //Read byte at strength offset and store it in strengthByte (NOTE: This will increment offset position! As does writing!)
-                strengthByte = fs.ReadByte();
+                //Loop through all bytes between strength and swimming, calculate and set value accordingly
+                for (int i = 0; i < stats.Length; i++)
+                {
+                    //i + 30 because strength starts at offset 31 (relative to length between offset 0x01 and 0x1F) and arrays start at [0]
+                    statReq = stats[i] ^ XORterms[i + 30];
+                    byteConvered = Convert.ToByte(statReq);
+                    fs.WriteByte(byteConvered);
+                }
+
+                fs.Close();
+
+                MessageBox.Show("Stats updated!");
+
+            }
+        }
+
+
+                /*
+
+
+                        //Will read offset 0x36 after previous edits
+                        strengthByte = fs.ReadByte();
 
                 //Calculate term
                 codeTerm = calcTerm(int.Parse(StrengthSync.Text), strengthByte);
@@ -187,7 +283,7 @@ namespace UW_Save_Editor
             return changeByte;
         }
 
-
+*/
         private void openFileButton_Click(object sender, EventArgs e)
         {       
             if (ofd.ShowDialog() == DialogResult.OK);

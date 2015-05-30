@@ -41,7 +41,7 @@ do a sort of "over flow" and the incrementation value is set to equal 0 (but sti
 adds 3 each byte).
 
 Some code follows:
-
+<code>
 if (xorIncrement + startXOR > 0xFF)
 {
     if (xorIncrement + startXOR == 0x100)
@@ -61,6 +61,7 @@ if (xorIncrement + startXOR > 0xFF)
 
     xorIncrement = 0;
 }
+</code>
 
 As you can see, it basically "peels" the 1 off the front of the hex value and
 that's now our new Starting XOR value to work off for the rest of the file.

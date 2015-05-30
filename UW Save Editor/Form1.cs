@@ -1,33 +1,14 @@
 ﻿//******************************************************************************
 //Ultima Underworld Save Editor - Shane Harrison
-//Documentation used: ftp://files.chatnfiles.com/Infomagic-Windows/Infomagic-Games-for-Daze-Summer-95-1/EDITORS/UWEDITOR/UWEDITOR.TXT
-//                      http://bootstrike.com/Ultima/Online/uwformat.php
+//Documentation used:
+//   ftp://files.chatnfiles.com/Infomagic-Windows/Infomagic-Games-for-Daze-Summer-95-1/EDITORS/UWEDITOR/UWEDITOR.TXT
+//   http://bootstrike.com/Ultima/Online/uwformat.php
 //
 //******************************************************************************
 
-/*Some notes
- * Address 0x3B seems to store the value which determines the avatars fatigue (awake, drowsy, fatigue, etc) 0x00 - 0x79 = "fatigued" ::::  0x80 - 0x9F = "awake" :::: 0xA0 - 0xAF "wide awake" :::: 0xB0 - 0xB7 "rested" :::: 0xB8 - 0xBF "wide awake" :::: 0xC0 - 0xCF "very tired" :::: 0xD0 - 0xDF  "fatigued" :::: 0xE0 - 0xFF "drowsy"
- *Addresses 0x4B - 0x4E (4 bytes, 32 bit int?) seem to change values of max weight the avatar can carry. (maybe not 0x4E....test)
- *
- *Address 0x55 to 0x58 seems to contain Coordinate location data for the player (but seems stored in reversed order..) It feels like 0x56 and 0x55 store data in reverse order, i.e 0x56 is the "whole value" and 0x55 is the "Decimal", e.g 23.43343 where "23" would be held in 0x56 and .43343 held in 0x55
- *
- * e.g coordinate = X.XXXXXX (EAST-WEST)      Y.YYYYYY (NORTH-SOUTH)
- *                  ^    ^                    ^    ^
- *                0x56  0x55                 0x58  0x57
- *                  
- * Z coordinate (up and down) is stored in 0x59 and 0x5A in the same reversed fashion
- * 
- * Rotation is stored in 0x5B and 0x5C in same reversed fashion
- */
-
-
-//Name stuff - First character = Offset 0x01
-//Note: Each letter byte does not depend on the byte before it (Maybe with exception of 1st letter to offset 0x00?) 
-//Note: Each offset doesn't represent the same character with the same byte. e.g "FF" in 0x01 will be a different character than "FF" in 0x02
-//Note: Case sensetive
-//Note: lower case and upper case bytes of the same letter have a difference of 0x20 (i.e if upper case S was a 0x20, then lower case S would be either 0x00 or 0x40, could be either side) 
-
-
+//Some notes
+//Address 0x3B seems to store the value which determines the avatars fatigue (awake, drowsy, fatigue, etc) 0x00 - 0x79 = "fatigued" ::::  0x80 - 0x9F = "awake" :::: 0xA0 - 0xAF "wide awake" :::: 0xB0 - 0xB7 "rested" :::: 0xB8 - 0xBF "wide awake" :::: 0xC0 - 0xCF "very tired" :::: 0xD0 - 0xDF  "fatigued" :::: 0xE0 - 0xFF "drowsy"
+//Addresses 0x4B - 0x4E (4 bytes, 32 bit int?) seem to change values of max weight the avatar can carry. (maybe not 0x4E....test)
 
 using System;
 using System.Collections.Generic;

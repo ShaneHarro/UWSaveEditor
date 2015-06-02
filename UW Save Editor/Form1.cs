@@ -29,6 +29,7 @@ namespace UW_Save_Editor
         OpenFileDialog ofd = new OpenFileDialog();
         FileStream fs;
         bool fileOK = false;
+        int[] XORterms;
 
         public Form1()
         {
@@ -63,8 +64,9 @@ namespace UW_Save_Editor
             int swimming = int.Parse(swimBox.Text);
 
             const byte strengthOffset = 0x1F;
+
             const int NAME_LENGTH = 15;
-            const int NO_OF_BYTES = 53;
+            const int NO_OF_BYTES = 200; //From 0x01 to 0x5D (where 0x5D stores current floor/level)
             int startXOR;
             int xorIncrement = 0x03;
             int statLevelWanted;
@@ -84,7 +86,7 @@ namespace UW_Save_Editor
             int[] decodedValues = new int[NO_OF_BYTES];
 
             //All the XOR terms for each byte
-            int[] XORterms = new int[NO_OF_BYTES];
+            XORterms = new int[NO_OF_BYTES];
 
             //If file open and correct format
             if (fileOK == true)
@@ -96,7 +98,7 @@ namespace UW_Save_Editor
                 //Will read offset 0x00 (this will be our starting XOR value)
                 startXOR = fs.ReadByte();
 
-                 //Read all the bytes between 0x01 (The first character of name) and 0x35 (Value which determines swimming)
+                //Read all the bytes between 0x01 (The first character of name) and 0x35 (Value which determines swimming)
                 for (int i = 0; i < encodedBytes.Length; i++)
                 {
                     encodedBytes[i] = fs.ReadByte();
@@ -110,8 +112,6 @@ namespace UW_Save_Editor
                     //If the Starting XOR + our increment goes over 0xFF, check its value and set our values back accordingly
                     if (xorIncrement + startXOR > 0xFF)
                     {
-                        MessageBox.Show("Overflow warning: " + (xorIncrement + startXOR).ToString("x"));
-
                         if (xorIncrement + startXOR == 0x100)
                         {
                             startXOR = 0x00;
@@ -159,10 +159,39 @@ namespace UW_Save_Editor
                     fs.WriteByte(byteConvered);
                 }
 
+
+                //offset 56 before offset 55 because little endian
+                  MessageBox.Show("X position: " + decodedValues[85].ToString() + "." + decodedValues[84].ToString());
+                  MessageBox.Show("Y position: " + decodedValues[87].ToString() + "." + decodedValues[86].ToString());
+                  MessageBox.Show("Z position: " + decodedValues[89].ToString() + "." + decodedValues[88].ToString());
+
+
+
+                /* byte xPos_1 = Convert.ToByte(200 ^ XORterms[84]);
+                 byte xPos_2 = Convert.ToByte(208 ^ XORterms[85]);
+
+                 byte yPos_1 = Convert.ToByte(65 ^ XORterms[86]);
+                 byte yPos_2 = Convert.ToByte(18 ^ XORterms[87]);
+
+                 byte zPos_1 = Convert.ToByte(16 ^ XORterms[88]);
+                 byte zPos_2 = Convert.ToByte(19 ^ XORterms[89]);
+
+
+                 fs.Position = positionOffset;
+
+                 fs.WriteByte(xPos_1);
+                 fs.WriteByte(xPos_2);
+
+                 fs.WriteByte(yPos_1);
+                 fs.WriteByte(yPos_2);
+
+                 fs.WriteByte(zPos_1);
+                 fs.WriteByte(zPos_2);
+                */
+
                 fs.Close();
 
                 MessageBox.Show("Stats updated!");
-
             }
 
             else
@@ -173,8 +202,8 @@ namespace UW_Save_Editor
 
 
         private void openFileButton_Click(object sender, EventArgs e)
-        {       
-            if (ofd.ShowDialog() == DialogResult.OK);
+        {
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
                 //Check if correct file extension 
                 string filePath = ofd.FileName;
@@ -194,75 +223,55 @@ namespace UW_Save_Editor
             }
         }
 
-
         //Teleportation still under construction
         private void teleportButton_Click(object sender, EventArgs e)
-        {        
+        {
+            const byte positionOffset = 0x55;
+            //byte xPos_1 = 0;
+            //byte xPos_2 = 0;
+            //byte yPos_1 = 0;
+           // byte yPos_2 = 0;
+            //byte zPos_1 = 0;
+            //byte zPos_2 = 0;
+
             if (fileOK == true)
             {
                 fs = new FileStream(ofd.FileName, FileMode.Open);
+                fs.Position = positionOffset;
 
-                // EA 14 CA 13 14 14 - Start coordinate
                 if (startRadio.Checked)
                 {
-                    fs.Position = 0x55;
+                    //Start coordinates = X = 208.200    Y = 18.65  Z = 19.16 (Keep in mind: little endian!)
+                    byte xPos_1 = Convert.ToByte(200 ^ XORterms[84]);
+                    byte xPos_2 = Convert.ToByte(208 ^ XORterms[85]);
 
-                    //x (or y?)
-                    fs.WriteByte(0xEA);
-                    fs.WriteByte(0x14);
+                    byte yPos_1 = Convert.ToByte(65 ^ XORterms[86]);
+                    byte yPos_2 = Convert.ToByte(18 ^ XORterms[87]);
 
-                    //y (or x?)
-                    fs.WriteByte(0xCA);
-                    fs.WriteByte(0x13);
+                    byte zPos_1 = Convert.ToByte(16 ^ XORterms[88]);
+                    byte zPos_2 = Convert.ToByte(19 ^ XORterms[89]);
 
-                    //z
-                    fs.WriteByte(0x14);
-                    fs.WriteByte(0x14);
+
+
+                    fs.WriteByte(xPos_1);
+                    fs.WriteByte(xPos_2);
+
+                    fs.WriteByte(yPos_1);
+                    fs.WriteByte(yPos_2);
+
+                    fs.WriteByte(zPos_1);
+                    fs.WriteByte(zPos_2);
                 }
 
-                //CA 27 81 22 15 14 - Gray Goblins
-                if (grayRadio.Checked)
-                {
-                    fs.Position = 0x55;
-
-                    //x (or y?)
-                    fs.WriteByte(0xCA);
-                    fs.WriteByte(0x27);
-
-                    //y (or x?)
-                    fs.WriteByte(0x81);
-                    fs.WriteByte(0x22);
-
-                    //z
-                    fs.WriteByte(0x15);
-                    fs.WriteByte(0x14);
-                }
-
-                //64 14 93 27 13 14 - Spider Cave
-                if (spiderRadio.Checked)
-                {
-                    fs.Position = 0x55;
-
-                    //x (or y?)
-                    fs.WriteByte(0x64);
-                    fs.WriteByte(0x14);
-
-                    //y (or x?)
-                    fs.WriteByte(0x93);
-                    fs.WriteByte(0x27);
-
-                    //z
-                    fs.WriteByte(0x13);
-                    fs.WriteByte(0x14);
-                }     
-
-                MessageBox.Show("Coordinates updated!");
-                fs.Close();
             }
+
+            MessageBox.Show("Coordinates updated!");
+            fs.Close();
         }
 
-
     }
+
+
 
     public static class StringExtension
     {

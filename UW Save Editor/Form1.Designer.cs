@@ -39,6 +39,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.atkBox = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.playerNameLabel = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.swimBox = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
@@ -85,7 +86,6 @@
             this.startRadio = new System.Windows.Forms.RadioButton();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
-            this.playerNameLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -234,6 +234,15 @@
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Desired Stats";
+            // 
+            // playerNameLabel
+            // 
+            this.playerNameLabel.AutoSize = true;
+            this.playerNameLabel.Location = new System.Drawing.Point(403, 174);
+            this.playerNameLabel.Name = "playerNameLabel";
+            this.playerNameLabel.Size = new System.Drawing.Size(70, 13);
+            this.playerNameLabel.TabIndex = 51;
+            this.playerNameLabel.Text = "Player Name:";
             // 
             // label24
             // 
@@ -641,15 +650,6 @@
             this.label27.Size = new System.Drawing.Size(323, 13);
             this.label27.TabIndex = 19;
             this.label27.Text = "(NOTE: This only works on some characters. Use at your own risk!)";
-            // 
-            // playerNameLabel
-            // 
-            this.playerNameLabel.AutoSize = true;
-            this.playerNameLabel.Location = new System.Drawing.Point(403, 174);
-            this.playerNameLabel.Name = "playerNameLabel";
-            this.playerNameLabel.Size = new System.Drawing.Size(70, 13);
-            this.playerNameLabel.TabIndex = 51;
-            this.playerNameLabel.Text = "Player Name:";
             // 
             // Form1
             // 

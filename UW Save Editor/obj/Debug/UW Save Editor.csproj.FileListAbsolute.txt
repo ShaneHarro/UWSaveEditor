@@ -8,11 +8,10 @@ C:\Users\SHANE\Documents\Visual Studio 2013\Projects\UW Save Editor\UW Save Edit
 C:\Users\SHANE\Documents\Visual Studio 2013\Projects\UW Save Editor\UW Save Editor\UW Save Editor\obj\Debug\UW Save Editor.exe
 C:\Users\SHANE\Documents\Visual Studio 2013\Projects\UW Save Editor\UW Save Editor\UW Save Editor\obj\Debug\UW Save Editor.pdb
 C:\Users\SHANE\Documents\GitHub\UWSaveEditor\UWSaveEditor\UW Save Editor\bin\Debug\UW Save Editor.exe.config
-C:\Users\SHANE\Documents\GitHub\UWSaveEditor\UWSaveEditor\UW Save Editor\obj\Debug\UW Save Editor.exe
-C:\Users\SHANE\Documents\GitHub\UWSaveEditor\UWSaveEditor\UW Save Editor\obj\Debug\UW Save Editor.pdb
 C:\Users\SHANE\Documents\GitHub\UWSaveEditor\UWSaveEditor\UW Save Editor\bin\Debug\UW Save Editor.exe
 C:\Users\SHANE\Documents\GitHub\UWSaveEditor\UWSaveEditor\UW Save Editor\bin\Debug\UW Save Editor.pdb
-C:\Users\SHANE\Documents\GitHub\UWSaveEditor\UWSaveEditor\UW Save Editor\obj\Debug\UW Save Editor.csprojResolveAssemblyReference.cache
 C:\Users\SHANE\Documents\GitHub\UWSaveEditor\UWSaveEditor\UW Save Editor\obj\Debug\UW_Save_Editor.Form1.resources
 C:\Users\SHANE\Documents\GitHub\UWSaveEditor\UWSaveEditor\UW Save Editor\obj\Debug\UW_Save_Editor.Properties.Resources.resources
 C:\Users\SHANE\Documents\GitHub\UWSaveEditor\UWSaveEditor\UW Save Editor\obj\Debug\UW Save Editor.csproj.GenerateResource.Cache
+C:\Users\SHANE\Documents\GitHub\UWSaveEditor\UWSaveEditor\UW Save Editor\obj\Debug\UW Save Editor.exe
+C:\Users\SHANE\Documents\GitHub\UWSaveEditor\UWSaveEditor\UW Save Editor\obj\Debug\UW Save Editor.pdb

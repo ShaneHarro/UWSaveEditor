@@ -15,3 +15,4 @@ C:\Users\SHANE\Documents\GitHub\UWSaveEditor\UWSaveEditor\UW Save Editor\obj\Deb
 C:\Users\SHANE\Documents\GitHub\UWSaveEditor\UWSaveEditor\UW Save Editor\obj\Debug\UW Save Editor.csproj.GenerateResource.Cache
 C:\Users\SHANE\Documents\GitHub\UWSaveEditor\UWSaveEditor\UW Save Editor\obj\Debug\UW Save Editor.exe
 C:\Users\SHANE\Documents\GitHub\UWSaveEditor\UWSaveEditor\UW Save Editor\obj\Debug\UW Save Editor.pdb
+C:\Users\SHANE\Documents\GitHub\UWSaveEditor\UWSaveEditor\UW Save Editor\obj\Debug\UW Save Editor.csprojResolveAssemblyReference.cache

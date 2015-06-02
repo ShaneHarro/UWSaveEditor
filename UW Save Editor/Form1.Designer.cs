@@ -81,18 +81,20 @@
             this.teleportButton = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.coordsButton = new System.Windows.Forms.Button();
             this.spiderRadio = new System.Windows.Forms.RadioButton();
             this.grayRadio = new System.Windows.Forms.RadioButton();
             this.startRadio = new System.Windows.Forms.RadioButton();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileButton
             // 
-            this.openFileButton.Location = new System.Drawing.Point(219, 53);
+            this.openFileButton.Location = new System.Drawing.Point(244, 32);
             this.openFileButton.Name = "openFileButton";
             this.openFileButton.Size = new System.Drawing.Size(174, 23);
             this.openFileButton.TabIndex = 0;
@@ -180,7 +182,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.playerNameLabel);
             this.groupBox1.Controls.Add(this.label24);
             this.groupBox1.Controls.Add(this.swimBox);
             this.groupBox1.Controls.Add(this.label23);
@@ -228,7 +229,7 @@
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(12, 115);
+            this.groupBox1.Location = new System.Drawing.Point(12, 80);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(630, 373);
             this.groupBox1.TabIndex = 14;
@@ -238,9 +239,10 @@
             // playerNameLabel
             // 
             this.playerNameLabel.AutoSize = true;
-            this.playerNameLabel.Location = new System.Drawing.Point(403, 174);
+            this.playerNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playerNameLabel.Location = new System.Drawing.Point(209, 60);
             this.playerNameLabel.Name = "playerNameLabel";
-            this.playerNameLabel.Size = new System.Drawing.Size(70, 13);
+            this.playerNameLabel.Size = new System.Drawing.Size(81, 15);
             this.playerNameLabel.TabIndex = 51;
             this.playerNameLabel.Text = "Player Name:";
             // 
@@ -588,21 +590,32 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.coordsButton);
             this.groupBox2.Controls.Add(this.spiderRadio);
             this.groupBox2.Controls.Add(this.grayRadio);
             this.groupBox2.Controls.Add(this.startRadio);
             this.groupBox2.Controls.Add(this.teleportButton);
-            this.groupBox2.Location = new System.Drawing.Point(666, 115);
+            this.groupBox2.Location = new System.Drawing.Point(666, 80);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(281, 371);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Teleport";
             // 
+            // coordsButton
+            // 
+            this.coordsButton.Location = new System.Drawing.Point(49, 30);
+            this.coordsButton.Name = "coordsButton";
+            this.coordsButton.Size = new System.Drawing.Size(169, 23);
+            this.coordsButton.TabIndex = 19;
+            this.coordsButton.Text = "Check Current Coordinates...";
+            this.coordsButton.UseVisualStyleBackColor = true;
+            this.coordsButton.Click += new System.EventHandler(this.coordsButton_Click);
+            // 
             // spiderRadio
             // 
             this.spiderRadio.AutoSize = true;
-            this.spiderRadio.Location = new System.Drawing.Point(106, 92);
+            this.spiderRadio.Location = new System.Drawing.Point(103, 125);
             this.spiderRadio.Name = "spiderRadio";
             this.spiderRadio.Size = new System.Drawing.Size(83, 17);
             this.spiderRadio.TabIndex = 18;
@@ -613,7 +626,7 @@
             // grayRadio
             // 
             this.grayRadio.AutoSize = true;
-            this.grayRadio.Location = new System.Drawing.Point(106, 63);
+            this.grayRadio.Location = new System.Drawing.Point(103, 96);
             this.grayRadio.Name = "grayRadio";
             this.grayRadio.Size = new System.Drawing.Size(85, 17);
             this.grayRadio.TabIndex = 17;
@@ -625,7 +638,7 @@
             // 
             this.startRadio.AutoSize = true;
             this.startRadio.Checked = true;
-            this.startRadio.Location = new System.Drawing.Point(106, 35);
+            this.startRadio.Location = new System.Drawing.Point(103, 68);
             this.startRadio.Name = "startRadio";
             this.startRadio.Size = new System.Drawing.Size(47, 17);
             this.startRadio.TabIndex = 16;
@@ -636,7 +649,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(712, 77);
+            this.label26.Location = new System.Drawing.Point(712, 42);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(190, 13);
             this.label26.TabIndex = 18;
@@ -645,17 +658,28 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(639, 95);
+            this.label27.Location = new System.Drawing.Point(639, 60);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(323, 13);
             this.label27.TabIndex = 19;
             this.label27.Text = "(NOTE: This only works on some characters. Use at your own risk!)";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(162, 6);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(340, 13);
+            this.label3.TabIndex = 51;
+            this.label3.Text = "Note: Program must be restarted for editing between different save files";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(974, 498);
+            this.ClientSize = new System.Drawing.Size(974, 461);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.playerNameLabel);
             this.Controls.Add(this.label27);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.label25);
@@ -733,6 +757,8 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label playerNameLabel;
+        private System.Windows.Forms.Button coordsButton;
+        private System.Windows.Forms.Label label3;
     }
 }
 

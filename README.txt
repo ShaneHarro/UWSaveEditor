@@ -1,4 +1,4 @@
-A save game editor for Ultima Underworld.
+A save game editor for Ultima Underworld written in C#.
 
 This is still heavily under construction, and using this program may damage or
 corrupt your save files. The teleport feature only currently works with certain
